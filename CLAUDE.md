@@ -18,6 +18,7 @@ stay true at once.
 | `benchmark/pairs.jsonl` | the test set | committed artifact; keep it in sync with `build_pairs.py` |
 | `benchmark/ab.py` | user-facing A/B | the number a reader trusts most; keep its interval-overlap warning intact |
 | `benchmark/results/*.jsonl` | raw evidence | append-only; a published figure must trace to rows here |
+| `docs/PREREGISTRATION.md` | the decision rules | amending it after results exist requires a commit message saying so |
 | `docs/HONEST-NUMBERS.md` | the honesty contract | update it in the same commit as any new result |
 | `scripts/validate_skill.py` | spec gate | encodes the Agent Skills spec plus two labelled repo policies |
 
@@ -34,6 +35,7 @@ make bench        # a real run; needs ANTHROPIC_API_KEY or OPENAI_API_KEY
 make report       # rebuild the results table from benchmark/results/
 make ab-smoke     # ab.py alone against a local mock endpoint
 make preview      # regenerate docs/assets/social-preview.png (needs Pillow)
+python3 scripts/make_pair_review.py --seed 41 > review-sheet.md   # blind pair review
 ```
 
 ## Rules for this repository

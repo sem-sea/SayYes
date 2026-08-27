@@ -25,6 +25,10 @@ make bench
 `benchmark/report.py` regenerates the table from the committed raw rows, so
 every published figure traces back to an output any reader can re-score.
 
+The thresholds that will decide how this result is framed are already fixed in
+[PREREGISTRATION.md](PREREGISTRATION.md), including the case where the answer is
+"no effect" and the case where it contradicts the pitch.
+
 ### Why this section exists in this state
 
 A skill whose pitch is reliability, shipping a fabricated reliability number,
@@ -60,10 +64,15 @@ rather than hide them.
 **Constraints the model already agrees with.** arXiv:2604.07192 reports that
 "conventional constraints achieve 99%+ compliance" while "counter-intuitive
 constraints opposing model defaults fail at 10--100%." At 99% compliance there
-is under a point of headroom, so phrasing cannot help. Roughly a fifth of the
-current pair set is tagged `with-default` as a control that should show
-approximately zero effect. A run that shows a large lift on that group is
-evidence of a broken checker, not a big win.
+is under a point of headroom, so phrasing cannot help. Five of the 41 pairs are
+tagged `with-default` as a control that should show approximately zero effect.
+
+A lift on that group is a warning rather than a win: it means either a checker
+is scoring the arms differently for a reason unrelated to compliance, or the
+pairs are confounded and the positive arms are simply easier to satisfy.
+[PREREGISTRATION.md](PREREGISTRATION.md) sets the band at ±3pp and commits to
+withholding the primary result rather than publishing it if the control breaches
+that.
 
 **Instruction blocks already written positively.** yesand rewrites
 prohibitions. A prompt with none is returned unchanged, and the change list is

@@ -63,6 +63,9 @@ def main(argv: list[str] | None = None) -> int:
                     help="default 1.0: your real traffic is rarely at 0")
     ap.add_argument("--max-tokens", type=int, default=1024)
     ap.add_argument("--timeout", type=int, default=120)
+    ap.add_argument("--max-tokens-field", default=None,
+                    choices=["max_tokens", "max_completion_tokens"],
+                    help="override the OpenAI-compatible token-cap field name")
     ap.add_argument("--save", type=Path, default=None, help="write raw rows to this JSONL path")
     args = ap.parse_args(argv)
 
@@ -103,6 +106,7 @@ def main(argv: list[str] | None = None) -> int:
                     model=args.model, system=instruction, user=task,
                     max_tokens=args.max_tokens, temperature=args.temperature,
                     base_url=args.base_url, timeout=args.timeout,
+                    max_tokens_field=args.max_tokens_field,
                 )
             except ProviderError as exc:
                 print(f"  ! {label} r{rep}: {exc}", file=sys.stderr)

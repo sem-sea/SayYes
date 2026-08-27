@@ -171,6 +171,20 @@ Raw rows land in `benchmark/results/<provider>-<model>.jsonl`, one row per
 completion, each keeping the full model output. Anyone can re-score the same
 rows under different checkers without spending a token.
 
+## Guards against the author's own bias
+
+The pairs were written by someone who expects positive phrasing to win, which is
+the main threat to this benchmark's validity. Three guards, all in place before
+any data exists:
+
+- [PREREGISTRATION.md](PREREGISTRATION.md) fixes the decision rules, the sample
+  size, and the stopping rule, committed while `benchmark/results/` is empty.
+- The `with-default` pairs act as a falsification test on the instrument: they
+  should show no effect, and a lift there means the pairs are confounded.
+- [PAIR-REVIEW.md](PAIR-REVIEW.md) describes a blind review in which a reviewer
+  who has not read this repository judges whether the two arms of each pair
+  really mean the same thing, and whether one is simply easier to satisfy.
+
 ## What would change the conclusion
 
 - A measured lift under about 3 to 5 percentage points, or one that fails to

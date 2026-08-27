@@ -15,7 +15,9 @@ completion, with the raw output kept so any reader can re-score it.
     export OPENAI_API_KEY=...
     python3 benchmark/run.py --provider openai --model gpt-5 --repeat 3
 
-    # Any OpenAI-compatible endpoint, including a local Ollama server:
+    # Any OpenAI-compatible endpoint. A local Ollama server needs no key and
+    # lets anyone reproduce a run for free, which is the point of committing
+    # the raw rows:
     python3 benchmark/run.py --provider openai --base-url http://localhost:11434/v1 \
         --model qwen3:8b --repeat 3
 
@@ -58,7 +60,10 @@ def _post(url: str, payload: dict, headers: dict, timeout: int) -> dict:
 
 
 def call_anthropic(model: str, system: str, user: str, max_tokens: int,
-                   temperature: float, base_url: str | None, timeout: int) -> tuple[str, dict]:
+                   temperature: float, base_url: str | None, timeout: int,
+                   max_tokens_field: str | None = None) -> tuple[str, dict]:
+    # max_tokens_field is accepted so both providers share one call signature;
+    # the Anthropic Messages API names this field max_tokens either way.
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise ProviderError("set ANTHROPIC_API_KEY to run against Anthropic models")
@@ -88,14 +93,20 @@ def call_anthropic(model: str, system: str, user: str, max_tokens: int,
 
 
 def call_openai(model: str, system: str, user: str, max_tokens: int,
-                temperature: float, base_url: str | None, timeout: int) -> tuple[str, dict]:
+                temperature: float, base_url: str | None, timeout: int,
+                max_tokens_field: str | None = None) -> tuple[str, dict]:
     key = os.environ.get("OPENAI_API_KEY", "unused")
     root = (base_url or OPENAI_URL).rstrip("/")
+    # api.openai.com takes max_completion_tokens; Ollama, llama.cpp, vLLM and
+    # most other OpenAI-compatible servers take max_tokens. Default by
+    # destination so a local model works out of the box, and let --max-tokens-field
+    # override it for a hosted endpoint that wants the newer name (Azure, say).
+    field = max_tokens_field or ("max_completion_tokens" if base_url is None else "max_tokens")
     body = _post(
         f"{root}/chat/completions",
         {
             "model": model,
-            "max_completion_tokens": max_tokens,
+            field: max_tokens,
             "temperature": temperature,
             "messages": [
                 {"role": "system", "content": system},
@@ -148,6 +159,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--temperature", type=float, default=0.0)
     ap.add_argument("--max-tokens", type=int, default=1024)
     ap.add_argument("--timeout", type=int, default=120)
+    ap.add_argument("--max-tokens-field", default=None,
+                    choices=["max_tokens", "max_completion_tokens"],
+                    help="override the OpenAI-compatible token-cap field name "
+                         "(default: max_tokens for a custom --base-url, "
+                         "max_completion_tokens for api.openai.com)")
     ap.add_argument("--attempts", type=int, default=4, help="retries per call on transient errors")
     ap.add_argument("--seed", type=int, default=20260827, help="seed for arm-order shuffling")
     ap.add_argument("--limit", type=int, default=0, help="run only the first N pairs")
@@ -193,6 +209,7 @@ def main(argv: list[str] | None = None) -> int:
                     temperature=args.temperature,
                     base_url=args.base_url,
                     timeout=args.timeout,
+                    max_tokens_field=args.max_tokens_field,
                 )
             except ProviderError as exc:
                 failures += 1

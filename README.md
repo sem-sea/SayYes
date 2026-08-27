@@ -148,6 +148,11 @@ make bench-smoke  # the runner end to end against a local mock endpoint
 make bench        # a real run (set ANTHROPIC_API_KEY or OPENAI_API_KEY)
 ```
 
+The decision rules are fixed in advance:
+[docs/PREREGISTRATION.md](docs/PREREGISTRATION.md) names the thresholds, the
+sample size, and the control group that would show the pairs to be biased — all
+committed while `benchmark/results/` is empty, which `git log` can confirm.
+
 **No model has been run yet, so this project publishes no compliance number of
 its own.** The harness works and the table is empty. Read
 [docs/HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md) for what that means, where
@@ -233,6 +238,8 @@ counter-intuitive constraints, not positive from negative phrasing.
 ## Docs
 
 - [METHODOLOGY.md](docs/METHODOLOGY.md) — the eight rules, the sources, the benchmark design
+- [PREREGISTRATION.md](docs/PREREGISTRATION.md) — the decision rules, committed before any result exists
+- [PAIR-REVIEW.md](docs/PAIR-REVIEW.md) — the blind check that the pairs measure phrasing alone
 - [HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md) — what is measured, what is not, and where yesand does nothing
 - [examples/before-after.md](examples/before-after.md) — ten self-contained rewrites
 - [CLAUDE.md](CLAUDE.md) — maintainer notes
