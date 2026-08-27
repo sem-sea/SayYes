@@ -183,6 +183,8 @@ counter-intuitive constraints, not positive from negative phrasing.
 - [HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md) — what is measured, what is not, and where yesand does nothing
 - [examples/before-after.md](examples/before-after.md) — ten self-contained rewrites
 - [CLAUDE.md](CLAUDE.md) — maintainer notes
+- [CONTRIBUTING.md](CONTRIBUTING.md) — how to contribute a benchmark run, a pair, or a checker
+- [SECURITY.md](SECURITY.md) — what the skill can reach, and how to report a rewrite that weakens a safety line
 
 ## Sources
 
