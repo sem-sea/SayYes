@@ -29,6 +29,16 @@ Install it in one line:
 npx skills add sem-sea/SayYes
 ```
 
+> **Honest number warning.** This project publishes **no compliance percentage**,
+> because it has run no model yet. The benchmark harness is built, tested, and
+> reproducible — and `benchmark/results/` is empty. What stands behind yesand
+> today is vendor guidance from Anthropic and Google plus the negation
+> literature, which supports a direction rather than a number. Positive phrasing
+> also does nothing at all on constraints a model already agrees with, which
+> comply at ceiling regardless. Where yesand wins, where it does nothing, and
+> how to measure it on your own prompt:
+> **[docs/HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md)**.
+
 ## Why
 
 Anthropic's prompting guide lists this first among the ways to steer a model's
@@ -142,6 +152,49 @@ make bench        # a real run (set ANTHROPIC_API_KEY or OPENAI_API_KEY)
 its own.** The harness works and the table is empty. Read
 [docs/HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md) for what that means, where
 yesand is known in advance to do nothing, and what a run costs.
+
+## Measure it yourself
+
+The number that should decide whether you adopt yesand comes from your prompt
+on your task, not from this repository's test set. `benchmark/ab.py` runs that
+comparison:
+
+```bash
+export ANTHROPIC_API_KEY=...
+python3 benchmark/ab.py \
+  --a "Do not use bullet points."        \
+  --b "Write the answer as prose."       \
+  --task "Explain how DNS resolution works." \
+  --checker no_bullets --repeat 20 \
+  --provider anthropic --model claude-sonnet-5
+```
+
+It alternates which phrasing leads, scores both arms with the same
+deterministic checker, and reports each rate with a 95% Wilson interval, in
+this shape:
+
+```text
+A compliance: <rate>% (<low>-<high>)  n=20
+B compliance: <rate>% (<low>-<high>)  n=20
+difference:   <±d> pp (B minus A)
+```
+
+The values are left blank on purpose. This repository has measured none of
+them, and a plausible-looking sample here would be quoted as a result inside a
+week.
+
+Three things about reading your own output:
+
+- **Overlapping intervals mean you have yet to measure a difference.** The
+  script says so when it happens. Raise `--repeat`, or read it as no effect.
+- **Your provider's usage page outranks any token count printed here.** When
+  cost is the question, compare billed totals for the same task under both
+  phrasings.
+- **Temperature defaults to 1.0**, since production traffic rarely runs at 0.
+
+`--list-checkers` prints the 19 available checkers, `--checker none` skips
+scoring so you can read the outputs yourself, and `--save rows.jsonl` keeps
+every completion for re-scoring later.
 
 ## FAQ
 

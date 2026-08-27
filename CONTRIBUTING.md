@@ -27,6 +27,12 @@ that holds for results that favour yesand as much as results that do not. The
 rows are what let a reader disagree with a checker and settle it by reading the
 model's actual output.
 
+## Contributing a measurement of your own
+
+`benchmark/ab.py` compares two phrasings on your own task and prints a Wilson
+interval per arm. A result from it belongs in an issue with the rows from
+`--save`, including — especially — a result showing no effect.
+
 ## Contributing a pair
 
 Add it to `PAIRS` in `benchmark/build_pairs.py`, then run `make pairs`. Two

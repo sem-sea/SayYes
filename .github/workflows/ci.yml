@@ -43,7 +43,7 @@ jobs:
           python -c "import json; json.load(open('.claude-plugin/marketplace.json'))"
           python -c "import yaml; yaml.safe_load(open('CITATION.cff'))"
 
-      - name: Exercise the benchmark runner end to end
+      - name: Exercise the benchmark runner and the A/B tool end to end
         run: make bench-smoke
 
   skills-cli:

@@ -104,6 +104,48 @@ Treat that as an order of magnitude, not a quote. The measured figure will be
 recorded here after the first real run, computed from the `usage` field on the
 committed rows.
 
+## Measure it yourself
+
+Your own A/B outranks anything this repository publishes, including whatever
+eventually fills the table above. This repo's pairs are 41 constraints chosen by
+its author; your prompt is the one you actually run.
+
+**1. Compare two phrasings on your task.**
+
+```bash
+export ANTHROPIC_API_KEY=...
+python3 benchmark/ab.py --a original.txt --b rewritten.txt --task task.txt \
+    --checker no_bullets --repeat 20 --provider anthropic --model claude-sonnet-5
+```
+
+`ab.py` alternates arm order, scores both with one deterministic checker, and
+prints a 95% Wilson interval per arm. It states plainly when the intervals
+overlap, which means the run distinguished nothing.
+
+**2. Compare provider-billed totals, when cost is the question.** Run the same
+task under both phrasings and read your provider's usage page. Billed totals
+outrank the output-token counts `ab.py` prints, because prompts, cached context,
+and retries all land on your bill and none of them appear in a completion
+length.
+
+**3. Reproduce this repository's own numbers** with `make bench`, once there are
+any. Until then the table above stays empty rather than estimated.
+
+### Reading a result honestly
+
+- An interval spanning zero is not a small effect; it is an unmeasured one.
+  Raise `--repeat` or report no effect.
+- A single task is a single task. A win on one prompt generalises to your other
+  prompts only as far as the constraint type generalises.
+- Run the arms in both orders, which `ab.py` does, so position cannot masquerade
+  as phrasing.
+- Temperature 0 hides the variance you actually live with. `ab.py` defaults to
+  1.0 for that reason.
+
+If your measurement contradicts anything on this page,
+[open an issue](https://github.com/sem-sea/SayYes/issues) with the raw rows from
+`--save`. A contradicting result gets added here.
+
 ## Limits of the design
 
 Worth knowing before quoting any future result from this harness.

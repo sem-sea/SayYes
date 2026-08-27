@@ -16,6 +16,7 @@ stay true at once.
 | `benchmark/checkers.py` | scoring | changing a checker invalidates already-committed rows scored under the old one |
 | `benchmark/build_pairs.py` | pair source | run `make pairs` after editing; `pairs.jsonl` is generated from it |
 | `benchmark/pairs.jsonl` | the test set | committed artifact; keep it in sync with `build_pairs.py` |
+| `benchmark/ab.py` | user-facing A/B | the number a reader trusts most; keep its interval-overlap warning intact |
 | `benchmark/results/*.jsonl` | raw evidence | append-only; a published figure must trace to rows here |
 | `docs/HONEST-NUMBERS.md` | the honesty contract | update it in the same commit as any new result |
 | `scripts/validate_skill.py` | spec gate | encodes the Agent Skills spec plus two labelled repo policies |
@@ -28,9 +29,10 @@ make validate     # SKILL.md against https://agentskills.io/specification
 make selftest     # 19 checkers against 75 fixtures, plus pairs.jsonl integrity
 make links        # relative markdown links resolve
 make pairs        # regenerate pairs.jsonl after editing build_pairs.py
-make bench-smoke  # run.py end to end against a local mock endpoint, no API key
+make bench-smoke  # run.py and ab.py end to end against a local mock endpoint, no API key
 make bench        # a real run; needs ANTHROPIC_API_KEY or OPENAI_API_KEY
 make report       # rebuild the results table from benchmark/results/
+make ab-smoke     # ab.py alone against a local mock endpoint
 make preview      # regenerate docs/assets/social-preview.png (needs Pillow)
 ```
 
