@@ -1,0 +1,23 @@
+{
+  "name": "sayyes",
+  "owner": {
+    "name": "Ben Verschuur",
+    "url": "https://github.com/sem-sea"
+  },
+  "description": "The yesand skill: rewrite agent instructions into positive form for more reliable instruction-following.",
+  "plugins": [
+    {
+      "name": "yesand",
+      "source": "./",
+      "description": "Rewrites instructions and prompts into positive form, so every line names the action to take.",
+      "version": "1.0.0",
+      "author": { "name": "Ben Verschuur" },
+      "homepage": "https://github.com/sem-sea/SayYes",
+      "repository": "https://github.com/sem-sea/SayYes",
+      "license": "MIT",
+      "category": "prompt-engineering",
+      "keywords": ["prompt-engineering", "instructions", "reliability", "system-prompt", "agent-skills"],
+      "skills": "./skills"
+    }
+  ]
+}

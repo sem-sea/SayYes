@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Offline checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: python -m pip install --quiet pyyaml
+
+      - name: Validate SKILL.md against the Agent Skills spec
+        run: make validate
+
+      - name: Run checker fixtures and pair integrity
+        run: make selftest
+
+      - name: Check relative markdown links
+        run: make links
+
+      - name: Confirm pairs.jsonl matches build_pairs.py
+        run: |
+          make pairs
+          git diff --exit-code -- benchmark/pairs.jsonl
+
+      - name: Validate JSON manifests
+        run: |
+          python -c "import json; json.load(open('.claude-plugin/plugin.json'))"
+          python -c "import json; json.load(open('.claude-plugin/marketplace.json'))"
+          python -c "import yaml; yaml.safe_load(open('CITATION.cff'))"
+
+      - name: Exercise the benchmark runner end to end
+        run: make bench-smoke
+
+  skills-cli:
+    name: Skill discovery via the skills CLI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: List the skills this repository exposes
+        run: npx --yes skills@latest add . --list

@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.smoke/
+.mockpid
+node_modules/
+.DS_Store
