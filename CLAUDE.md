@@ -1,6 +1,6 @@
 # Maintainer notes
 
-Context for anyone — human or agent — working on this repository.
+Context for anyone working on this repository, human or agent.
 
 ## What this repository is
 
@@ -42,7 +42,7 @@ python3 scripts/make_pair_review.py --seed 41 > review-sheet.md   # blind pair r
 
 **Every number traces to a committed row.** A figure in the README or the docs
 comes from `benchmark/results/`, via `benchmark/report.py`. A figure with no row
-behind it gets removed, the way the 9.3pp claim was — the full account is in
+behind it gets removed, the way the 9.3pp claim was. The full account is in
 [docs/METHODOLOGY.md](docs/METHODOLOGY.md#a-claim-removed-on-inspection).
 
 **Every citation gets opened before it ships.** The 9.3pp claim survived several
@@ -70,7 +70,7 @@ and the safety allowlist are the exceptions, and they are marked as such.
 1. Add the entry to `PAIRS` in `benchmark/build_pairs.py`.
 2. Tag `alignment` honestly: `against-default` where the constraint pushes
    against what the model would do untold, `with-default` where it agrees.
-   The split is the point — see the arXiv:2604.07192 discussion in
+   The split is the point. See the arXiv:2604.07192 discussion in
    [docs/METHODOLOGY.md](docs/METHODOLOGY.md).
 3. Keep both arms semantically identical. Differing meaning makes the pair
    measure something other than phrasing.

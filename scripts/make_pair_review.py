@@ -39,7 +39,7 @@ For each item, answer two questions.
 **Q1. Do X and Y ask for the same thing?**  `same` / `different` / `unsure`
 
 **Q2. Is one of them easier to satisfy, more specific, or clearer than the
-other — setting aside how each is worded?**  `X` / `Y` / `neither`
+other, setting aside how each is worded?**  `X` / `Y` / `neither`
 
 Q2 is the one that matters. Two instructions can mean the same thing while one
 of them is still a lower bar to clear, and an item where a reviewer keeps
@@ -49,7 +49,7 @@ intended.
 Answer from the text alone. Skip anything you would have to guess at, and mark
 it `unsure` rather than choosing.
 
-Record answers as: `item, Q1, Q2` — for example `7, same, neither`.
+Record answers as `item, Q1, Q2`, for example `7, same, neither`.
 
 ---
 """

@@ -80,7 +80,7 @@ def load_rows(results_dir: Path) -> list[dict]:
 def fmt(point: float, low: float, high: float) -> str:
     if math.isnan(point):
         return "n/a"
-    return f"{point:.1f}% ({low:.1f}–{high:.1f})"
+    return f"{point:.1f}% ({low:.1f}-{high:.1f})"
 
 
 def table(rows: list[dict], group_key, group_label: str) -> list[str]:

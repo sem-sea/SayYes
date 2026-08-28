@@ -4,7 +4,7 @@ Values that live in GitHub's settings rather than in the tree, recorded here so
 they survive a transfer or a fresh clone. Apply them under **Settings → General**
 and on the repository home page.
 
-## About — description
+## About: description
 
 Paste into the "About" field on the repository home page:
 
@@ -12,7 +12,7 @@ Paste into the "About" field on the repository home page:
 Agent Skill that rewrites LLM instructions into positive form for more reliable instruction-following. Ships a reproducible compliance benchmark. The reliability complement to caveman.
 ```
 
-## About — website
+## About: website
 
 ```text
 https://github.com/sem-sea/SayYes/blob/main/docs/METHODOLOGY.md
@@ -92,10 +92,10 @@ provenance rather than correctness.
 
 Places worth listing the skill, each with its own contribution format to follow:
 
-- [`skills` registry](https://github.com/vercel-labs/skills) — the CLI behind
+- [`skills` registry](https://github.com/vercel-labs/skills), the CLI behind
   `npx skills add`
-- `awesome-claude-skills` and `awesome-agent-skills` lists — open a PR matching
-  each list's CONTRIBUTING format
+- `awesome-claude-skills` and `awesome-agent-skills` lists, where you open a PR
+  matching each list's CONTRIBUTING format
 - [agentskills.io](https://agentskills.io) client and skill directories
 
 A note on submission hygiene: some directories run static analysis over skill

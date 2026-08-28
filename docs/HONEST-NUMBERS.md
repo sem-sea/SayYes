@@ -7,13 +7,13 @@ Read this before quoting any figure from this repository.
 
 **`benchmark/results/` is empty. No model has been run against these 41 pairs
 yet.** The harness is built, its 19 checkers pass 75 fixtures, and the runner is
-verified end to end against a local mock endpoint — but the API calls that would
+verified end to end against a local mock endpoint, but the API calls that would
 fill in the table below have not been made, so this project currently publishes
 no compliance number of its own.
 
 | Model | Pairs | Negative phrasing | Positive phrasing | Difference (pp) |
 | --- | ---: | --- | --- | --- |
-| _(unrun)_ | 41 | — | — | — |
+| _(unrun)_ | 41 | n/a | n/a | n/a |
 
 Filling this in takes one command and an API key:
 
@@ -91,8 +91,8 @@ Secondary, modest, and sometimes zero or negative.
 
 A positive rewrite replaces a short prohibition with a longer specification.
 "Don't be verbose" is 3 tokens; "answer in 3 sentences or fewer" is about 7.
-Savings appear only where one positive line collapses several prohibitions —
-where four separate bans on formatting become one instruction naming the wanted
+Savings appear only where one positive line collapses several prohibitions, as
+when four separate bans on formatting become one instruction naming the wanted
 format.
 
 **No token measurement has been made for this project.** `run.py` records
@@ -107,7 +107,7 @@ Unmeasured, and here is the arithmetic behind the estimate. 41 pairs × 2 arms �
 instruction plus a one-line task) and outputs are capped at 1,024 tokens, most
 landing far below that. At current frontier per-token prices that lands in
 low single-digit US dollars per model, so three models sit in roughly the
-$5–15 range.
+$5 to $15 range.
 
 Treat that as an order of magnitude, not a quote. The measured figure will be
 recorded here after the first real run, computed from the `usage` field on the
@@ -177,7 +177,7 @@ Worth knowing before quoting any future result from this harness.
 ## Comparison with caveman
 
 [caveman](https://github.com/JuliusBrussee/caveman) (MIT, roughly 100k stars at
-the time of writing — a moving number) compresses model **output**. yesand
+the time of writing, a moving number) compresses model **output**. yesand
 rewrites the **instructions** going in. They act on different halves of the
 exchange and stack without conflict.
 

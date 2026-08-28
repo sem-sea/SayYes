@@ -58,13 +58,13 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if failures:
-        print(f"FAIL — {len(failures)} broken relative link(s):")
+        print(f"FAIL: {len(failures)} broken relative link(s):")
         for failure in failures:
             print(f"  - {failure}")
         return 1
 
     print(
-        f"ok — {checked} relative link(s) resolve across {len(markdown_files())} markdown files; "
+        f"ok: {checked} relative link(s) resolve across {len(markdown_files())} markdown files; "
         f"{len(external)} external URL(s) left for manual review"
     )
     return 0

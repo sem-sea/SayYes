@@ -2,7 +2,7 @@
 
 # yesand
 
-**An Agent Skill that rewrites LLM instructions into positive form, so every line names the action to take — and the model follows it more reliably.**
+**An Agent Skill that rewrites LLM instructions into positive form, so every line names the action to take.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CI](https://github.com/sem-sea/SayYes/actions/workflows/ci.yml/badge.svg)](https://github.com/sem-sea/SayYes/actions/workflows/ci.yml)
@@ -31,7 +31,7 @@ npx skills add sem-sea/SayYes
 
 > **Honest number warning.** This project publishes **no compliance percentage**,
 > because it has run no model yet. The benchmark harness is built, tested, and
-> reproducible — and `benchmark/results/` is empty. What stands behind yesand
+> reproducible, and `benchmark/results/` is empty. What stands behind yesand
 > today is vendor guidance from Anthropic and Google plus the negation
 > literature, which supports a direction rather than a number. Positive phrasing
 > also does nothing at all on constraints a model already agrees with, which
@@ -49,14 +49,14 @@ output format:
 > - Instead of: "Do not use markdown in your response"
 > - Try: "Your response should be composed of smoothly flowing prose paragraphs."
 >
-> — [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices), Anthropic
+> Source: [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices), Anthropic
 
 Google's guidance points the same way: "Giving the model instructions on what to
 do is an effective and efficient way to customize model behavior."
 
 The research explains the mechanism. [ReboundBench](https://arxiv.org/abs/2511.12381)
 released 5,000 systematically varied negation prompts and found that ironic
-rebound — the suppressed idea becoming *more* accessible — "consistently arises
+rebound, the suppressed idea becoming *more* accessible, "consistently arises
 immediately after negation and intensifies with longer or semantic distractors."
 
 Most prompts are written the other way round anyway. A CLAUDE.md accumulates
@@ -67,7 +67,7 @@ them.
 ## Install
 
 <details open>
-<summary><b>Claude Code — as a plugin</b></summary>
+<summary><b>Claude Code, as a plugin</b></summary>
 
 ```bash
 claude plugin marketplace add sem-sea/SayYes
@@ -77,7 +77,7 @@ claude plugin install yesand@sayyes
 </details>
 
 <details open>
-<summary><b>Any of 77 agents — via the skills CLI</b></summary>
+<summary><b>Any of 77 agents, via the skills CLI</b></summary>
 
 ```bash
 # install into every agent the CLI detects on this machine
@@ -112,14 +112,14 @@ Run `npx skills add sem-sea/SayYes -l` to list what the CLI finds, and
 <summary><b>By hand</b></summary>
 
 Copy `skills/yesand/` into your agent's skills directory, keeping the folder
-name `yesand` — the Agent Skills spec requires the folder name to match the
+name `yesand`. The Agent Skills spec requires the folder name to match the
 `name` in the frontmatter.
 
 </details>
 
 ## How it works
 
-1. Ask an agent to rewrite a block of instructions — a system prompt, a
+1. Ask an agent to rewrite a block of instructions: a system prompt, a
    CLAUDE.md, an AGENTS.md, a tool description, or another skill.
 2. yesand activates on that phrasing and reads its eight rewrite rules.
 3. Each prohibition becomes the action it implies. Vague limits become
@@ -130,7 +130,7 @@ name `yesand` — the Agent Skills spec requires the folder name to match the
    is reviewable before it lands.
 
 The skill body is 282 words and costs about 120 tokens to keep resident at
-discovery time. See [`skills/yesand/SKILL.md`](skills/yesand/SKILL.md) — it is
+discovery time. See [`skills/yesand/SKILL.md`](skills/yesand/SKILL.md). It is
 short enough to read in a minute, and it is the whole product.
 
 ## Benchmark
@@ -139,7 +139,7 @@ The harness in [`benchmark/`](benchmark/) runs 41 instruction pairs across 19
 constraint types. Each pair holds one task and two phrasings of one identical
 constraint; the system prompt carries the instruction, the model, temperature,
 and token cap stay fixed, and arm order is shuffled from a seed. Nineteen
-deterministic checkers score compliance — a judge model was rejected on purpose,
+deterministic checkers score compliance. A judge model was rejected on purpose,
 since it would make the result depend on the judge's own handling of negation.
 
 ```bash
@@ -150,7 +150,7 @@ make bench        # a real run (set ANTHROPIC_API_KEY or OPENAI_API_KEY)
 
 The decision rules are fixed in advance:
 [docs/PREREGISTRATION.md](docs/PREREGISTRATION.md) names the thresholds, the
-sample size, and the control group that would show the pairs to be biased — all
+sample size, and the control group that would show the pairs to be biased, all
 committed while `benchmark/results/` is empty, which `git log` can confirm.
 
 **No model has been run yet, so this project publishes no compliance number of
@@ -214,7 +214,7 @@ caveman compresses what the model writes back. yesand rewrites the instructions
 going in. Different halves of the exchange.
 
 **Can I use both?**
-Yes, and they stack cleanly — one shortens output, the other hardens
+Yes, and they stack cleanly. One shortens output, the other hardens
 instructions. Neither touches what the other operates on.
 
 **Does this save tokens?**
@@ -237,29 +237,29 @@ counter-intuitive constraints, not positive from negative phrasing.
 
 ## Docs
 
-- [METHODOLOGY.md](docs/METHODOLOGY.md) — the eight rules, the sources, the benchmark design
-- [PREREGISTRATION.md](docs/PREREGISTRATION.md) — the decision rules, committed before any result exists
-- [PAIR-REVIEW.md](docs/PAIR-REVIEW.md) — the blind check that the pairs measure phrasing alone
-- [HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md) — what is measured, what is not, and where yesand does nothing
-- [examples/before-after.md](examples/before-after.md) — ten self-contained rewrites
-- [CLAUDE.md](CLAUDE.md) — maintainer notes
-- [CONTRIBUTING.md](CONTRIBUTING.md) — how to contribute a benchmark run, a pair, or a checker
-- [SECURITY.md](SECURITY.md) — what the skill can reach, and how to report a rewrite that weakens a safety line
+- [METHODOLOGY.md](docs/METHODOLOGY.md): the eight rules, the sources, the benchmark design
+- [PREREGISTRATION.md](docs/PREREGISTRATION.md): the decision rules, committed before any result exists
+- [PAIR-REVIEW.md](docs/PAIR-REVIEW.md): the blind check that the pairs measure phrasing alone
+- [HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md): what is measured, what is not, and where yesand does nothing
+- [examples/before-after.md](examples/before-after.md): ten self-contained rewrites
+- [CLAUDE.md](CLAUDE.md): maintainer notes
+- [CONTRIBUTING.md](CONTRIBUTING.md): how to contribute a benchmark run, a pair, or a checker
+- [SECURITY.md](SECURITY.md): what the skill can reach, and how to report a rewrite that weakens a safety line
 
 ## Sources
 
-- [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) — Anthropic
-- [Give clear and specific instructions](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/prompts/clear-instructions) — Google Cloud
+- [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices): Anthropic
+- [Give clear and specific instructions](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/prompts/clear-instructions): Google Cloud
 - [Agent Skills specification](https://agentskills.io/specification)
-- [arXiv:2402.07896](https://arxiv.org/abs/2402.07896) — Suppressing Pink Elephants with Direct Principle Feedback
-- [arXiv:2503.22395](https://arxiv.org/abs/2503.22395) — Negation: A Pink Elephant in the Large Language Models' Room?
-- [arXiv:2511.12381](https://arxiv.org/abs/2511.12381) — Don't Think of the White Bear (ReboundBench)
-- [arXiv:2311.07911](https://arxiv.org/abs/2311.07911) — IFEval, the model for this benchmark's design
+- [arXiv:2402.07896](https://arxiv.org/abs/2402.07896): Suppressing Pink Elephants with Direct Principle Feedback
+- [arXiv:2503.22395](https://arxiv.org/abs/2503.22395): Negation: A Pink Elephant in the Large Language Models' Room?
+- [arXiv:2511.12381](https://arxiv.org/abs/2511.12381): Don't Think of the White Bear (ReboundBench)
+- [arXiv:2311.07911](https://arxiv.org/abs/2311.07911): IFEval, the model for this benchmark's design
 
 ## A note on this README
 
 Every instruction here is phrased positively. The negatives you can see are
-quoted inputs in the before/after examples, and the safety allowlist — which is
+quoted inputs in the before/after examples, and the safety allowlist, which is
 the honest exception the skill itself carries.
 
 ## License

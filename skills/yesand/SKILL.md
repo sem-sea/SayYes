@@ -24,16 +24,16 @@ identical.
 
 Apply these to every instruction you write or edit.
 
-1. Name the wanted alternative — "use X" in place of a ban on Y.
-2. Name the wanted location — "edit the existing file in place" in place of a
+1. Name the wanted alternative: "use X" in place of a ban on Y.
+2. Name the wanted location: "edit the existing file in place" in place of a
    ban on new files.
-3. Give length a number — "answer in 3 sentences or fewer" in place of a ban on
+3. Give length a number: "answer in 3 sentences or fewer" in place of a ban on
    verbosity.
-4. Name the wanted format — "write plain prose paragraphs" in place of a ban on
+4. Name the wanted format: "write plain prose paragraphs" in place of a ban on
    markdown.
-5. Name the wanted step — "verify with a tool, then answer" in place of a ban on
+5. Name the wanted step: "verify with a tool, then answer" in place of a ban on
    guessing.
-6. Name the wanted opening — "open with the answer" in place of a ban on
+6. Name the wanted opening: "open with the answer" in place of a ban on
    pleasantries.
 7. Turn every vague limit into a quantity, a format, or a named step.
 8. Keep the safety allowlist below exactly as written.

@@ -11,12 +11,12 @@ identical; only the frame changes.
 
 | # | Pattern | Rewrite |
 | --- | --- | --- |
-| 1 | ban on a tool or token | name the wanted alternative — "use X" |
-| 2 | ban on a location | name the wanted location — "edit the existing file in place" |
-| 3 | ban on verbosity | give length a number — "answer in 3 sentences or fewer" |
-| 4 | ban on a format | name the wanted format — "write plain prose paragraphs" |
-| 5 | ban on guessing | name the wanted step — "verify with a tool, then answer" |
-| 6 | ban on pleasantries | name the wanted opening — "open with the answer" |
+| 1 | ban on a tool or token | name the wanted alternative, "use X" |
+| 2 | ban on a location | name the wanted location, "edit the existing file in place" |
+| 3 | ban on verbosity | give length a number, "answer in 3 sentences or fewer" |
+| 4 | ban on a format | name the wanted format, "write plain prose paragraphs" |
+| 5 | ban on guessing | name the wanted step, "verify with a tool, then answer" |
+| 6 | ban on pleasantries | name the wanted opening, "open with the answer" |
 | 7 | vague limit | turn it into a quantity, a format, or a named step |
 | 8 | safety refusal | copy it through verbatim |
 
@@ -56,7 +56,7 @@ format:
 > - Instead of: "Do not use markdown in your response"
 > - Try: "Your response should be composed of smoothly flowing prose paragraphs."
 
-— [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices),
+Source: [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices),
 Anthropic
 
 Google's guidance frames the same preference from the other side:
@@ -64,12 +64,12 @@ Google's guidance frames the same preference from the other side:
 > Giving the model instructions on what to do is an effective and efficient way
 > to customize model behavior.
 
-— [Give clear and specific instructions](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/prompts/clear-instructions),
+Source: [Give clear and specific instructions](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/prompts/clear-instructions),
 Google Cloud
 
 ### The negation literature
 
-**[arXiv:2402.07896](https://arxiv.org/abs/2402.07896)** — *Suppressing Pink
+**[arXiv:2402.07896](https://arxiv.org/abs/2402.07896)**, *Suppressing Pink
 Elephants with Direct Principle Feedback* (Castricato, Lile, Anand, Schoelkopf,
 Verma, Biderman; February 2024). Establishes the "pink elephant" task: keeping a
 model off a named topic while it discusses a preferred alternative. Its
@@ -77,7 +77,7 @@ contribution is a fine-tuning method, so it evidences that the failure mode is
 real and worth engineering against, rather than that any prompt phrasing fixes
 it.
 
-**[arXiv:2503.22395](https://arxiv.org/abs/2503.22395)** — *Negation: A Pink
+**[arXiv:2503.22395](https://arxiv.org/abs/2503.22395)**, *Negation: A Pink
 Elephant in the Large Language Models' Room?* (Vrabcová, Kadlčík, Sojka,
 Štefánik, Spiegel; March 2025). Builds multilingual negation datasets. Its
 findings cut both ways, and the honest reading includes both: larger models
@@ -85,7 +85,7 @@ handled negation **better**, and language structure mattered, with English
 scoring higher than German or Czech. Anyone citing negation research as a flat
 "models cannot handle negation" is overstating this paper.
 
-**[arXiv:2511.12381](https://arxiv.org/abs/2511.12381)** — *Don't Think of the
+**[arXiv:2511.12381](https://arxiv.org/abs/2511.12381)**, *Don't Think of the
 White Bear: Ironic Negation in Transformer Models Under Cognitive Load* (Mann,
 Saxena, Tandon, Sun, Toteja, Zhu; November 2025). Releases **ReboundBench**,
 5,000 systematically varied negation prompts, and reports that "rebound
@@ -124,7 +124,7 @@ constraints a program can verify, scored by code rather than by a judge model.
 
 **Pairing.** Each of the 41 pairs holds one task and two phrasings of one
 identical constraint. The system prompt carries the instruction, the user message
-carries the task, and everything else — model, temperature, token cap — stays
+carries the task, and everything else (model, temperature, token cap) stays
 fixed. Phrasing is the only variable.
 
 **Deterministic scoring.** The 19 checkers in `benchmark/checkers.py` are regex
@@ -142,7 +142,7 @@ Temperature 0 leaves real residual variance, and repeats make it visible.
 for the difference, because repeats of one pair are correlated and treating them
 as independent would understate the interval.
 
-**Coverage.** 19 constraint types over 41 pairs — 36 tagged `against-default`,
+**Coverage.** 19 constraint types over 41 pairs: 36 tagged `against-default`,
 5 `with-default`. The `with-default` group is small, and it is there as a
 control that should show roughly no effect, rather than as a measured population
 in its own right.

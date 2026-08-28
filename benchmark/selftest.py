@@ -89,7 +89,7 @@ CASES: dict[str, tuple[dict, list[str], list[str]]] = {
         {},
         ["443.", "git reset --soft HEAD~1 keeps the changes staged."],
         ["Sure! HTTPS uses 443.", "Here's the command you want.",
-         "Great question — the answer is 443."],
+         "Great question, the answer is 443."],
     ),
     "no_apology": (
         {},
@@ -191,12 +191,12 @@ def main() -> int:
     failures = test_checkers() + test_pairs()
     fixtures = sum(len(g) + len(b) for _, g, b in CASES.values())
     if failures:
-        print(f"FAIL — {len(failures)} problem(s):")
+        print(f"FAIL: {len(failures)} problem(s):")
         for failure in failures:
             print(f"  - {failure}")
         return 1
     print(
-        f"ok — {len(checkers.REGISTRY)} checkers pass {fixtures} fixtures; "
+        f"ok: {len(checkers.REGISTRY)} checkers pass {fixtures} fixtures; "
         f"pairs.jsonl is well formed."
     )
     return 0

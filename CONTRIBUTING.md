@@ -18,7 +18,7 @@ mock-endpoint smoke test of the runner.
 
 1. `export ANTHROPIC_API_KEY=...` (or `OPENAI_API_KEY`).
 2. `make bench`.
-3. Commit `benchmark/results/<provider>-<model>.jsonl` — the whole file,
+3. Commit `benchmark/results/<provider>-<model>.jsonl`, the whole file,
    including the `output` field on every row.
 4. Paste `python3 benchmark/report.py --by-alignment` output into the PR.
 
@@ -31,7 +31,7 @@ model's actual output.
 
 `benchmark/ab.py` compares two phrasings on your own task and prints a Wilson
 interval per arm. A result from it belongs in an issue with the rows from
-`--save`, including — especially — a result showing no effect.
+`--save`. A result showing no effect is especially welcome.
 
 ## Contributing a pair
 
@@ -62,7 +62,7 @@ activation, so the bar for adding to it is high: a change should alter what the
 agent does, not merely explain it better. Explanatory material belongs in
 `docs/`.
 
-Keep the spec constraints intact — folder name matching frontmatter `name`,
+Keep the spec constraints intact: folder name matching frontmatter `name`,
 description within 1024 characters, spec fields only. `make validate` checks
 all of it.
 
@@ -76,6 +76,6 @@ are the marked exceptions.
 
 Open every source before citing it and quote it verbatim. This project removed
 a headline statistic once already because the arXiv ID behind it turned out to
-point at a different paper — the account is in
+point at a different paper. The account is in
 [docs/METHODOLOGY.md](docs/METHODOLOGY.md#a-claim-removed-on-inspection). A PR
 that adds a number without a traceable source will be asked for the source.

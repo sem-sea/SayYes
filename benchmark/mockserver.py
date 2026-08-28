@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """A local stand-in for an OpenAI-compatible chat endpoint.
 
-This exists to exercise the plumbing in run.py — HTTP, retries, scoring, JSONL
-writing — with no API key and no network. It returns canned text chosen to
+This exists to exercise the plumbing in run.py (HTTP, retries, scoring, JSONL
+writing) with no API key and no network. It returns canned text chosen to
 violate the constraint under test, so a smoke run produces rows whose scores are
 predictable.
 

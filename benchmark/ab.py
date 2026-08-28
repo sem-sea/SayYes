@@ -146,7 +146,7 @@ def main(argv: list[str] | None = None) -> int:
         print("Too few scored completions to report a rate.")
 
     if any(total_out_tokens.values()):
-        print(f"\noutput tokens — A: {total_out_tokens['A']}, B: {total_out_tokens['B']}")
+        print(f"\noutput tokens. A: {total_out_tokens['A']}, B: {total_out_tokens['B']}")
         print("Compare your provider's usage page for the number that bills you.")
     return 0
 

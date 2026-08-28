@@ -8,7 +8,7 @@ nothing else. Run it **before** the benchmark, as
 
 Each pair is supposed to hold two phrasings of one identical constraint. If a
 positive arm is also more specific, clearer, or simply a lower bar to clear,
-then the benchmark measures specificity rather than phrasing — and returns a
+then the benchmark measures specificity rather than phrasing, and returns a
 clean, well-bounded, confidently-reported result about the wrong thing.
 
 The author of the pairs cannot catch this. They know which arm is which and
@@ -28,8 +28,8 @@ other part of this repository.
 
 For each item the reviewer answers two questions:
 
-- **Q1 — do X and Y ask for the same thing?** `same` / `different` / `unsure`
-- **Q2 — is one easier to satisfy, more specific, or clearer, setting aside how
+- **Q1. Do X and Y ask for the same thing?** `same` / `different` / `unsure`
+- **Q2. Is one easier to satisfy, more specific, or clearer, setting aside how
   each is worded?** `X` / `Y` / `neither`
 
 Q2 carries the weight. Q1 catches outright meaning drift, which is the obvious
@@ -52,12 +52,12 @@ they are not defects.
 **Q2 is the real test.** Translate each `X` or `Y` answer into positive or
 negative using the unblind table, then count.
 
-- Roughly balanced, with `neither` common — the pairs isolate phrasing. Proceed.
-- **A consistent lean toward the positive arm** — the pairs are confounded. The
+- Roughly balanced, with `neither` common. The pairs isolate phrasing, so proceed.
+- **A consistent lean toward the positive arm.** The pairs are confounded. The
   benchmark would return a lift caused by specificity rather than phrasing, so
   the leaning pairs get rewritten so both arms sit at equal specificity, and the
   review runs again under a new seed.
-- A consistent lean toward the negative arm — also a confound, in the direction
+- A consistent lean toward the negative arm is also a confound, in the direction
   that would understate the effect. Same fix.
 
 There is no threshold worth hard-coding here on 41 items; a clear pattern across
@@ -71,7 +71,7 @@ Best to worst:
 1. **A person who has not read this repository.** They have no hypothesis to
    confirm.
 2. **A model given the sheet alone**, with no context about yesand, negation, or
-   what the answers are for. Cheap, repeatable, and weaker than a person —
+   what the answers are for. Cheap, repeatable, and weaker than a person, since
    a model may carry its own prior about instruction phrasing.
 3. **The pair author.** Nearly worthless for Q2, and listed only to be explicit
    that it does not count as a review.
@@ -84,7 +84,7 @@ itself informative about which items are ambiguous.
 Commit the completed sheet and the seed under `docs/reviews/`, then note in
 [HONEST-NUMBERS.md](HONEST-NUMBERS.md) that the pairs were reviewed, by how many
 people, and what changed as a result. A review that changed nothing is still
-worth recording — it is the evidence that the check happened.
+worth recording, since it is the evidence that the check happened.
 
 If a review runs **after** a benchmark result exists, say so plainly. A pair set
 revised in light of a result it produced is no longer preregistered, and the run

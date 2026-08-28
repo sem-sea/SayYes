@@ -59,7 +59,7 @@ way and phrasing has almost no headroom to act in. arXiv:2604.07192 reports
 
 **Expected: a difference within ±3pp on the control group.**
 
-A difference outside that band is evidence that the pair set is biased — that
+A difference outside that band is evidence that the pair set is biased, meaning
 the positive arms are winning on specificity, clarity, or ease rather than on
 phrasing. If it happens, the primary result is **withheld rather than
 published**, the pairs go back through the review in

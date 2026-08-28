@@ -20,7 +20,7 @@ Reports worth sending:
 
 - text in `SKILL.md` that an agent could read as an instruction from an
   attacker rather than from the user
-- a rewrite rule that weakens a safety refusal — see below
+- a rewrite rule that weakens a safety refusal (see below)
 - anything in `benchmark/` that reads a file or reaches a host it should leave
   alone
 
