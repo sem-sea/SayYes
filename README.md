@@ -31,6 +31,15 @@ Install it in one line:
 npx skills add sem-sea/SayYes
 ```
 
+**In one paragraph.** yesand converts prohibitions in agent instructions into
+the action to take. "Do not use markdown" becomes "write in prose paragraphs".
+"Don't be verbose" becomes "answer in 4 sentences or fewer". It runs as an Agent
+Skill in Claude Code, Cursor, Codex, and 74 other agents, costs about 120 tokens
+to keep resident, and preserves safety refusals word for word. The technique is
+Anthropic's first recommendation for steering output format, and Google
+recommends the same. This repository ships a 41-pair benchmark to test whether
+it measurably helps, and publishes no percentage until that benchmark has run.
+
 > **Honest number warning.** This project publishes **no compliance percentage**,
 > because it has run no model yet. The benchmark harness is built, tested, and
 > reproducible, and `benchmark/results/` is empty. What stands behind yesand
@@ -40,6 +49,18 @@ npx skills add sem-sea/SayYes
 > comply at ceiling regardless. Where yesand wins, where it does nothing, and
 > how to measure it on your own prompt:
 > **[docs/HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md)**.
+
+## Key facts
+
+| | |
+| --- | --- |
+| **What it is** | An Agent Skill that rewrites LLM instructions into positive form |
+| **Rewrite rules** | 8, plus a safety allowlist held back from rewriting |
+| **Skill size** | 282 words, about 402 tokens when activated, 120 resident |
+| **Supported agents** | 77 via the `skills` CLI, including Claude Code, Cursor, Codex, Copilot |
+| **Benchmark** | 41 instruction pairs, 19 deterministic checkers, preregistered |
+| **Published compliance figure** | None yet, because no model has been run |
+| **License** | MIT |
 
 ## Why positive prompting beats prohibitions
 
@@ -82,6 +103,23 @@ misbehaves once.
 **yesand automates the rewrite.** It converts each prohibition in a block of
 agent instructions into the action it implies, quantifies vague limits, and
 preserves genuine safety refusals untouched.
+
+## The eight rewrite rules
+
+| Prohibition | Positive rewrite |
+| --- | --- |
+| "Do not use markdown" | "Write in prose paragraphs" |
+| "Never create new files" | "Edit the existing file in place" |
+| "Don't be verbose" | "Answer in 4 sentences or fewer" |
+| "Avoid bullet points" | "Write each point as a sentence in a paragraph" |
+| "Do not guess" | "Read the file first, then quote from it" |
+| "No pleasantries" | "Open with the answer" |
+| "Keep it short" | "Use 40 words or fewer" |
+| A genuine safety refusal | Left exactly as written, and flagged |
+
+Rule 7 carries most of the practical weight: a vague limit becomes a countable
+target. "Be concise" gives a model nothing to check itself against, while "4
+sentences or fewer" does.
 
 ## Install
 
@@ -222,59 +260,67 @@ every completion for re-scoring later.
 
 ## Frequently asked questions
 
-**Why does Claude ignore instructions in my CLAUDE.md?**
+### Why does Claude ignore instructions in my CLAUDE.md?
 The common causes are a rule buried far from where it applies, a vague limit
 with nothing to check against ("be concise"), and a prohibition competing with a
 strong default. yesand addresses the second and third: it turns vague limits
 into quantities and prohibitions into actions. A rule the model never reads is a
 placement problem, not a phrasing one.
 
-**How do I stop an LLM from using markdown, bullet points, or emoji?**
+### How do I stop an LLM from using markdown, bullet points, or emoji?
 Name the format you want instead of the one you are refusing. "Write in prose
 paragraphs" in place of "do not use markdown"; "write each cause as a sentence
 inside a paragraph" in place of "no bullet points"; "use words alone" in place
 of "no emoji". Anthropic's own guide uses the markdown case as its worked
 example.
 
-**Should I use "do not" and "never" in system prompts?**
+### Should I use "do not" and "never" in system prompts?
 Sparingly, and keep them for genuine safety and compliance boundaries, where a
 hard prohibition is doing real work. For ordinary behaviour, the action you want
 is the more reliable instruction according to both Anthropic and Google, and it
 is also shorter to reason about when a prompt grows to a hundred lines.
 
-**Does telling an LLM what not to do actually make it worse?**
+### Does telling an LLM what not to do actually make it worse?
 It measurably makes negation-shaped failures more likely. ReboundBench
 (arXiv:2511.12381) documents rebound immediately after a negation. The honest
 counterweight: arXiv:2503.22395 found *larger* models handle negation better,
 and results vary by language. Direction, yes; a headline percentage, no.
 
-**What is the difference between yesand and [caveman](https://github.com/JuliusBrussee/caveman)?**
+### yesand vs caveman: what is the difference?
+
+| | yesand | [caveman](https://github.com/JuliusBrussee/caveman) |
+| --- | --- | --- |
+| Acts on | Instructions going in | Output coming back |
+| Goal | Instruction following | Fewer output tokens |
+| Skill size when active | About 402 tokens | About 1,515 tokens |
+| Stacks with the other | Yes | Yes |
+
 caveman compresses what the model writes back. yesand rewrites the instructions
 going in. Different halves of the exchange.
 
-**Can I use both?**
+### Can I use both?
 Yes, and they stack cleanly. One shortens output, the other hardens
 instructions. Neither touches what the other operates on.
 
-**Does yesand work with Cursor, Codex, or Copilot?**
+### Does yesand work with Cursor, Codex, or Copilot?
 Yes. It is a standard Agent Skill, so it installs into any of the 77 agents the
 `skills` CLI supports, including Cursor, Codex, GitHub Copilot, Gemini CLI,
 Windsurf, Zed, and Claude Code. The skill is plain Markdown with no scripts and
 no network access.
 
-**Does this save tokens?**
+### Does this save tokens?
 Sometimes, modestly, and sometimes not at all. A positive rewrite is often
 *longer* than the ban it replaces; savings appear where one positive line
 collapses several prohibitions. Lead with reliability. The token arithmetic is
 in [HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md).
 
-**What happens to my safety rules?**
+### What happens to my safety rules?
 They stay exactly as written. Recasting "refuse to write malware" as "write only
 benign code" turns a hard boundary into a soft preference, so yesand keeps
 refusals, legal clauses, and licence terms verbatim, and flags anything
 uncertain rather than rewriting it.
 
-**Where is the 9.3 percentage-point figure I saw quoted?**
+### Where is the 9.3 percentage-point figure I saw quoted?
 Removed. It traced to arXiv:2604.07192, which is a token-economics paper about
 code-generation constraints; its Δ = 9pp separates conventional from
 counter-intuitive constraints, not positive from negative phrasing.
@@ -313,6 +359,6 @@ the honest exception the skill itself carries.
 
 <div align="center">
 
-[![Star history](https://api.star-history.com/svg?repos=sem-sea/SayYes&type=Date)](https://star-history.com/#sem-sea/SayYes&Date)
+[![Star history chart for the yesand Agent Skill](https://api.star-history.com/svg?repos=sem-sea/SayYes&type=Date)](https://star-history.com/#sem-sea/SayYes&Date)
 
 </div>
