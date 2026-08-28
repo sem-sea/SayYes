@@ -1,27 +1,29 @@
 cff-version: 1.2.0
-title: "yesand: rewriting agent instructions into positive form"
-message: "If you use yesand or its benchmark, please cite this repository."
+title: 'yesand: rewriting agent instructions into positive form'
+message: If you use yesand or its benchmark, please cite this repository.
 type: software
 authors:
-  - family-names: Verschuur
-    given-names: Ben
-repository-code: "https://github.com/sem-sea/SayYes"
-url: "https://github.com/sem-sea/SayYes"
-abstract: >-
-  yesand is an Agent Skill that rewrites instructions and prompts into positive
-  form, so each line names the action to take rather than a prohibition to
-  remember, while preserving genuine safety refusals verbatim. The repository
-  ships a reproducible compliance benchmark of 41 paired instructions across 19
-  deterministically checkable constraint types, designed after IFEval, for
-  measuring whether positively phrased instructions are followed more reliably
-  than negatively phrased ones of identical meaning.
+- family-names: Verschuur
+  given-names: Ben
+repository-code: https://github.com/sem-sea/SayYes
+url: https://github.com/sem-sea/SayYes
+abstract: yesand is an Agent Skill that rewrites instructions and prompts into positive form, so each
+  line names the action to take rather than a prohibition to remember, while preserving genuine safety
+  refusals verbatim. The repository ships a reproducible compliance benchmark of 41 paired instructions
+  across 19 deterministically checkable constraint types, designed after IFEval, for measuring whether
+  positively phrased instructions are followed more reliably than negatively phrased ones of identical
+  meaning.
 keywords:
-  - prompt engineering
-  - agent skills
-  - instruction following
-  - negation
-  - large language models
-  - benchmark
+- prompt engineering
+- positive prompting
+- agent skills
+- instruction following
+- negation
+- large language models
+- system prompt
+- benchmark
+- LLM reliability
+- prompt optimization
 license: MIT
 version: 1.0.0
-date-released: "2026-08-27"
+date-released: '2026-08-27'

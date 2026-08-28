@@ -6,11 +6,26 @@ and on the repository home page.
 
 ## About: description
 
-Paste into the "About" field on the repository home page:
+The single highest-weight field after the repository name. Paste into "About" on
+the repository home page:
 
 ```text
-Agent Skill that rewrites LLM instructions into positive form for more reliable instruction-following. Ships a reproducible compliance benchmark. The reliability complement to caveman.
+yesand: positive prompting for agent instructions. An Agent Skill that rewrites prohibitions in your system prompt, CLAUDE.md or AGENTS.md into the action to take, following Anthropic and Google prompt-engineering guidance. Ships a preregistered instruction-following benchmark. Claude Code, Cursor, Codex and 74 more.
 ```
+
+318 of 350 characters. Three things it is doing:
+
+- **It leads with `yesand`.** The repository is named `SayYes` while the product
+  is `yesand`, so this is the only high-weight surface carrying the name people
+  read in every install command. Without it, a search for the product name finds
+  nothing.
+- **It names the artifacts people search for**: system prompt, CLAUDE.md,
+  AGENTS.md, Claude Code, Cursor, Codex.
+- **It attributes rather than asserts.** The guidance is credited to Anthropic
+  and Google instead of claiming a reliability gain this project has yet to
+  measure. `docs/HONEST-NUMBERS.md` says no compliance number is published, and
+  the About field is the line most likely to be quoted back, so it must not
+  out-claim that page.
 
 ## About: website
 
@@ -20,23 +35,32 @@ https://github.com/sem-sea/SayYes/blob/main/docs/METHODOLOGY.md
 
 ## Topics
 
-Add all of these. The first six carry most of the discovery weight, since they
-are the tags the established skills in this category already use.
+GitHub allows 20. Add all of these. Topic pages are a real browsing surface, and
+a repository with none is invisible there.
 
 ```text
-claude
-claude-code
-claude-skills
-agent-skills
 prompt-engineering
-llm
-anthropic
-agent-skill
-claude-code-plugin
+positive-prompting
 instruction-following
+agent-skills
+agent-skill
+claude-skills
+claude-code
+claude-code-plugin
+claude
+anthropic
+llm
 system-prompt
-ai
+prompt-optimization
+ai-agents
+benchmark
+llm-evaluation
+cursor
+codex
 ```
+
+The first six carry most of the weight: they combine the terms this project
+should own with the tags established skills in this category already use.
 
 ## Social preview
 

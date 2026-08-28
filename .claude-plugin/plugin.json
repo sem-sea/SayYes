@@ -2,11 +2,26 @@
   "name": "yesand",
   "version": "1.0.0",
   "displayName": "yesand",
-  "description": "Rewrites instructions and prompts into positive form, so every line names the action to take.",
-  "author": { "name": "Ben Verschuur" },
+  "description": "Positive prompting for agent instructions. Rewrites prohibitions in a system prompt, CLAUDE.md, or AGENTS.md into the action to take, for more consistent instruction following.",
+  "author": {
+    "name": "Ben Verschuur"
+  },
   "homepage": "https://github.com/sem-sea/SayYes",
   "repository": "https://github.com/sem-sea/SayYes",
   "license": "MIT",
-  "keywords": ["prompt-engineering", "instructions", "reliability", "system-prompt", "agent-skills"],
+  "keywords": [
+    "prompt-engineering",
+    "positive-prompting",
+    "instruction-following",
+    "agent-skills",
+    "system-prompt",
+    "claude-code",
+    "claude-skills",
+    "llm",
+    "anthropic",
+    "agent-skill",
+    "prompt-optimization",
+    "ai-agents"
+  ],
   "skills": "./skills"
 }

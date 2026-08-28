@@ -2,7 +2,9 @@
 
 # yesand
 
-**An Agent Skill that rewrites LLM instructions into positive form, so every line names the action to take.**
+**Positive prompting for LLM and agent instructions. yesand is an Agent Skill that rewrites
+prohibitions in a system prompt, CLAUDE.md, or AGENTS.md into the action to take,
+the phrasing Anthropic and Google both recommend for instruction following.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CI](https://github.com/sem-sea/SayYes/actions/workflows/ci.yml/badge.svg)](https://github.com/sem-sea/SayYes/actions/workflows/ci.yml)
@@ -39,7 +41,7 @@ npx skills add sem-sea/SayYes
 > how to measure it on your own prompt:
 > **[docs/HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md)**.
 
-## Why
+## Why positive prompting beats prohibitions
 
 Anthropic's prompting guide lists this first among the ways to steer a model's
 output format:
@@ -63,6 +65,23 @@ Most prompts are written the other way round anyway. A CLAUDE.md accumulates
 "don't", "never", and "avoid" one incident at a time, and each one leaves the
 model holding a thing to remember rather than a move to make. yesand converts
 them.
+
+## What is positive prompting in prompt engineering?
+
+Positive prompting is writing an instruction as the action to take rather than
+the outcome to avoid. "Do not use markdown" is a prohibition; "write in prose
+paragraphs" is the same constraint in positive form. The model gets a target to
+aim at instead of a rule to remember.
+
+The technique is standard prompt engineering guidance rather than a trick. It
+appears first in Anthropic's list of ways to steer output format, and Google
+recommends the same direction. It is also the harder half of the advice to
+follow, because prohibitions are what people naturally write when a model
+misbehaves once.
+
+**yesand automates the rewrite.** It converts each prohibition in a block of
+agent instructions into the action it implies, quantifies vague limits, and
+preserves genuine safety refusals untouched.
 
 ## Install
 
@@ -133,7 +152,7 @@ The skill body is 282 words and costs about 120 tokens to keep resident at
 discovery time. See [`skills/yesand/SKILL.md`](skills/yesand/SKILL.md). It is
 short enough to read in a minute, and it is the whole product.
 
-## Benchmark
+## The instruction-following benchmark
 
 The harness in [`benchmark/`](benchmark/) runs 41 instruction pairs across 19
 constraint types. Each pair holds one task and two phrasings of one identical
@@ -201,7 +220,27 @@ Three things about reading your own output:
 scoring so you can read the outputs yourself, and `--save rows.jsonl` keeps
 every completion for re-scoring later.
 
-## FAQ
+## Frequently asked questions
+
+**Why does Claude ignore instructions in my CLAUDE.md?**
+The common causes are a rule buried far from where it applies, a vague limit
+with nothing to check against ("be concise"), and a prohibition competing with a
+strong default. yesand addresses the second and third: it turns vague limits
+into quantities and prohibitions into actions. A rule the model never reads is a
+placement problem, not a phrasing one.
+
+**How do I stop an LLM from using markdown, bullet points, or emoji?**
+Name the format you want instead of the one you are refusing. "Write in prose
+paragraphs" in place of "do not use markdown"; "write each cause as a sentence
+inside a paragraph" in place of "no bullet points"; "use words alone" in place
+of "no emoji". Anthropic's own guide uses the markdown case as its worked
+example.
+
+**Should I use "do not" and "never" in system prompts?**
+Sparingly, and keep them for genuine safety and compliance boundaries, where a
+hard prohibition is doing real work. For ordinary behaviour, the action you want
+is the more reliable instruction according to both Anthropic and Google, and it
+is also shorter to reason about when a prompt grows to a hundred lines.
 
 **Does telling an LLM what not to do actually make it worse?**
 It measurably makes negation-shaped failures more likely. ReboundBench
@@ -216,6 +255,12 @@ going in. Different halves of the exchange.
 **Can I use both?**
 Yes, and they stack cleanly. One shortens output, the other hardens
 instructions. Neither touches what the other operates on.
+
+**Does yesand work with Cursor, Codex, or Copilot?**
+Yes. It is a standard Agent Skill, so it installs into any of the 77 agents the
+`skills` CLI supports, including Cursor, Codex, GitHub Copilot, Gemini CLI,
+Windsurf, Zed, and Claude Code. The skill is plain Markdown with no scripts and
+no network access.
 
 **Does this save tokens?**
 Sometimes, modestly, and sometimes not at all. A positive rewrite is often
@@ -246,7 +291,7 @@ counter-intuitive constraints, not positive from negative phrasing.
 - [CONTRIBUTING.md](CONTRIBUTING.md): how to contribute a benchmark run, a pair, or a checker
 - [SECURITY.md](SECURITY.md): what the skill can reach, and how to report a rewrite that weakens a safety line
 
-## Sources
+## Sources and further reading
 
 - [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices): Anthropic
 - [Give clear and specific instructions](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/prompts/clear-instructions): Google Cloud
