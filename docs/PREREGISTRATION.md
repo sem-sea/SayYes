@@ -106,6 +106,17 @@ Editing this file after results exist is allowed and must be visible: the commit
 message says the plan changed after data, and gives the reason. The
 pre-amendment version stays in git history, where a reader can diff it.
 
+## How a run is executed
+
+Either `make bench` locally, or **Actions → Benchmark → Run workflow**, which
+runs the same command on a GitHub runner and pushes the rows to a `results/…`
+branch. The workflow hard-codes the sample size from this document rather than
+exposing it as an input, and stays manual rather than scheduled.
+
+CI adds provenance, not validity: a public log, a commit SHA, and a timestamp
+the author did not type. A local run producing the same rows is equally good
+evidence, and both are weaker than someone else reproducing it.
+
 ## Status
 
 **No run has been performed.** `benchmark/results/` is empty, and the table in
