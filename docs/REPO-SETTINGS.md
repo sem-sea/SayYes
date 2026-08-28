@@ -4,6 +4,20 @@ Values that live in GitHub's settings rather than in the tree, recorded here so
 they survive a transfer or a fresh clone. Apply them under **Settings → General**
 and on the repository home page.
 
+## Applying these in one command
+
+```bash
+./scripts/apply_repo_settings.sh
+```
+
+The script holds the description, homepage, and topics below, validates them
+against GitHub's limits, applies them through the gh CLI or a token, and prints
+the result. `DRY_RUN=1` shows the payloads without sending them.
+
+Keeping these under version control means they survive a repository transfer,
+they show up in a diff when they change, and nobody has to retype a 318
+character string into a web form.
+
 ## About: description
 
 The single highest-weight field after the repository name. Paste into "About" on

@@ -36,6 +36,7 @@ make report       # rebuild the results table from benchmark/results/
 make ab-smoke     # ab.py alone against a local mock endpoint
 make preview      # regenerate docs/assets/social-preview.png (needs Pillow)
 python3 scripts/make_pair_review.py --seed 41 > review-sheet.md   # blind pair review
+./scripts/apply_repo_settings.sh                                  # description, homepage, topics
 ```
 
 ## Rules for this repository
