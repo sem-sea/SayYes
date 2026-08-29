@@ -10,6 +10,7 @@ Results append to benchmark/results/<provider>-<model>.jsonl, one row per
 completion, with the raw output kept so any reader can re-score it.
 
     export ANTHROPIC_API_KEY=...
+    # Identity-linked keys also need: export ANTHROPIC_WORKSPACE_ID=wrkspc_...
     python3 benchmark/run.py --provider anthropic --model claude-sonnet-5 --repeat 3
 
     export OPENAI_API_KEY=...
@@ -75,6 +76,15 @@ def call_anthropic(model: str, system: str, user: str, max_tokens: int,
     if not key:
         raise ProviderError("set ANTHROPIC_API_KEY to run against Anthropic models")
     url = f"{base_url.rstrip('/')}/v1/messages" if base_url else ANTHROPIC_URL
+    headers = {
+        "content-type": "application/json",
+        "x-api-key": key,
+        "anthropic-version": ANTHROPIC_VERSION,
+    }
+    # Identity-linked keys must name the workspace the request acts in.
+    workspace = os.environ.get("ANTHROPIC_WORKSPACE_ID")
+    if workspace:
+        headers["anthropic-workspace-id"] = workspace
     body = _post(
         url,
         {
@@ -84,11 +94,7 @@ def call_anthropic(model: str, system: str, user: str, max_tokens: int,
             "system": system,
             "messages": [{"role": "user", "content": user}],
         },
-        {
-            "content-type": "application/json",
-            "x-api-key": key,
-            "anthropic-version": ANTHROPIC_VERSION,
-        },
+        headers,
         timeout,
     )
     text = "".join(b.get("text", "") for b in body.get("content", []) if b.get("type") == "text")

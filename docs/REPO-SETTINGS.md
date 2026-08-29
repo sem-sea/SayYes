@@ -106,7 +106,12 @@ Add under **Settings → Secrets and variables → Actions**:
 | Secret | For |
 | --- | --- |
 | `ANTHROPIC_API_KEY` | running against a Claude model |
+| `ANTHROPIC_WORKSPACE_ID` | required when the Claude key is identity-linked |
 | `OPENAI_API_KEY` | running against an OpenAI model |
+
+An identity-linked Claude key rejects every request without a workspace id,
+answering `anthropic-workspace-id is required`. The id starts with `wrkspc_`
+and appears in the Console under the workspace's settings.
 
 Either one is enough; the workflow stops with a clear error when the key for the
 chosen provider is absent. Trigger it from **Actions → Benchmark → Run
