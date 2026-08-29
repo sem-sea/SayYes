@@ -73,8 +73,8 @@ Best to worst:
 2. **A model given the sheet alone**, with no context about yesand, negation, or
    what the answers are for. Cheap, repeatable, and weaker than a person, since
    a model may carry its own prior about instruction phrasing.
-3. **The pair author.** Nearly worthless for Q2, and listed only to be explicit
-   that it does not count as a review.
+3. **The pair author**, whose answers to Q2 carry no weight and do not count as
+   a review.
 
 Two or three independent reviewers beat one, and disagreement between them is
 itself informative about which items are ambiguous.
@@ -92,5 +92,4 @@ that follows is a new run rather than a correction of the old one.
 
 ## Status
 
-**No review has been run.** The script works and produces a balanced, leak-free
-sheet; nobody has filled one in.
+The tooling is ready. No completed review has been recorded yet.

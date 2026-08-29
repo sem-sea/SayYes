@@ -1,21 +1,10 @@
 #!/usr/bin/env python3
-"""Emit benchmark/pairs.jsonl.
-
-pairs.jsonl is the committed artifact and stays hand-editable; this script
-exists so the pairs can be written as readable Python and re-serialised
-deterministically after an edit. Run: python3 benchmark/build_pairs.py
-"""
+"""Generate benchmark/pairs.jsonl. Run: python3 benchmark/build_pairs.py"""
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
-# Each pair holds one task and two phrasings of one identical constraint.
-# `alignment` records whether the constraint runs with or against a model's
-# untuned default behaviour, following the distinction in arXiv:2604.07192,
-# which reports 99%+ compliance for conventional constraints and 10-100%
-# failure for constraints opposing model defaults.
-#
 # fields: id, checker, params, alignment, task, negative, positive
 PAIRS: list[dict] = [
     dict(

@@ -31,23 +31,21 @@ Install it in one line:
 npx skills add sem-sea/SayYes
 ```
 
-**In one paragraph.** yesand converts prohibitions in agent instructions into
-the action to take. "Do not use markdown" becomes "write in prose paragraphs".
-"Don't be verbose" becomes "answer in 4 sentences or fewer". It runs as an Agent
-Skill in Claude Code, Cursor, Codex, and 74 other agents, costs about 120 tokens
-to keep resident, and preserves safety refusals word for word. The technique is
-Anthropic's first recommendation for steering output format, and Google
-recommends the same. This repository ships a 41-pair benchmark to test whether
-it measurably helps, and publishes no percentage until that benchmark has run.
+**What you get.** Every prohibition in your agent instructions becomes the action
+it implies. "Do not use markdown" becomes "write in prose paragraphs". "Don't be
+verbose" becomes "answer in 4 sentences or fewer". Vague limits become countable
+targets, and genuine safety refusals pass through untouched. You review a
+`was → now` line for every change before it lands.
 
-> **Honest number warning.** This project publishes **no compliance percentage**,
-> because it has run no model yet. The benchmark harness is built, tested, and
-> reproducible, and `benchmark/results/` is empty. What stands behind yesand
-> today is vendor guidance from Anthropic and Google plus the negation
-> literature, which supports a direction rather than a number. Positive phrasing
-> also does nothing at all on constraints a model already agrees with, which
-> comply at ceiling regardless. Where yesand wins, where it does nothing, and
-> how to measure it on your own prompt:
+It installs in one command, runs in 77 agents, and costs about 120 tokens to
+keep resident. The technique is Anthropic's first recommendation for steering
+output format, and Google recommends the same.
+
+> **On evidence.** This project follows published vendor guidance and the
+> negation literature, and ships a preregistered benchmark to test the size of
+> the effect. That benchmark has not been run yet, so yesand quotes no
+> compliance percentage. Everything measured, and the cases where positive
+> phrasing changes nothing, is in
 > **[docs/HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md)**.
 
 ## Key facts
@@ -59,7 +57,7 @@ it measurably helps, and publishes no percentage until that benchmark has run.
 | **Skill size** | 282 words, about 402 tokens when activated, 120 resident |
 | **Supported agents** | 77 via the `skills` CLI, including Claude Code, Cursor, Codex, Copilot |
 | **Benchmark** | 41 instruction pairs, 19 deterministic checkers, preregistered |
-| **Published compliance figure** | None yet, because no model has been run |
+| **Evidence** | Vendor guidance plus 3 papers; benchmark preregistered, not yet run |
 | **License** | MIT |
 
 ## Why positive prompting beats prohibitions
@@ -205,15 +203,10 @@ make bench-smoke  # the runner end to end against a local mock endpoint
 make bench        # a real run (set ANTHROPIC_API_KEY or OPENAI_API_KEY)
 ```
 
-The decision rules are fixed in advance:
-[docs/PREREGISTRATION.md](docs/PREREGISTRATION.md) names the thresholds, the
-sample size, and the control group that would show the pairs to be biased, all
-committed while `benchmark/results/` is empty, which `git log` can confirm.
-
-**No model has been run yet, so this project publishes no compliance number of
-its own.** The harness works and the table is empty. Read
-[docs/HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md) for what that means, where
-yesand is known in advance to do nothing, and what a run costs.
+Thresholds, sample size, and the control group are fixed in advance in
+[docs/PREREGISTRATION.md](docs/PREREGISTRATION.md), committed before any result
+exists so `git log` can confirm the order. Results land in
+[docs/HONEST-NUMBERS.md](docs/HONEST-NUMBERS.md) whichever way they fall.
 
 ## Measure it yourself
 
@@ -240,10 +233,6 @@ A compliance: <rate>% (<low>-<high>)  n=20
 B compliance: <rate>% (<low>-<high>)  n=20
 difference:   <±d> pp (B minus A)
 ```
-
-The values are left blank on purpose. This repository has measured none of
-them, and a plausible-looking sample here would be quoted as a result inside a
-week.
 
 Three things about reading your own output:
 
@@ -346,12 +335,6 @@ counter-intuitive constraints, not positive from negative phrasing.
 - [arXiv:2503.22395](https://arxiv.org/abs/2503.22395): Negation: A Pink Elephant in the Large Language Models' Room?
 - [arXiv:2511.12381](https://arxiv.org/abs/2511.12381): Don't Think of the White Bear (ReboundBench)
 - [arXiv:2311.07911](https://arxiv.org/abs/2311.07911): IFEval, the model for this benchmark's design
-
-## A note on this README
-
-Every instruction here is phrased positively. The negatives you can see are
-quoted inputs in the before/after examples, and the safety allowlist, which is
-the honest exception the skill itself carries.
 
 ## License
 

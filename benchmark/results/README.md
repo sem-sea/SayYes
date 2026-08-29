@@ -2,8 +2,7 @@
 
 Raw benchmark rows land here, one JSONL file per model, one row per completion.
 
-**This directory holds no runs yet.** The harness is built and verified; no
-model has been called against `../pairs.jsonl`. See
+No runs recorded yet. See
 [../../docs/HONEST-NUMBERS.md](../../docs/HONEST-NUMBERS.md).
 
 ## Producing a file

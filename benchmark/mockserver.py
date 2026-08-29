@@ -1,14 +1,7 @@
 #!/usr/bin/env python3
-"""A local stand-in for an OpenAI-compatible chat endpoint.
+"""A local stand-in for an OpenAI-compatible chat endpoint, for smoke tests.
 
-This exists to exercise the plumbing in run.py (HTTP, retries, scoring, JSONL
-writing) with no API key and no network. It returns canned text chosen to
-violate the constraint under test, so a smoke run produces rows whose scores are
-predictable.
-
-The replies come from a lookup table, not a model. Rows produced against this
-server measure nothing about any model and belong nowhere near
-benchmark/results/.
+Replies come from a lookup table, not a model.
 
     python3 benchmark/mockserver.py --port 8931
 """
@@ -18,7 +11,6 @@ import argparse
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
-# Deliberately violates most prose constraints at once.
 CANNED = (
     "Sure! Here's what I found:\n\n"
     "# Overview\n\n"

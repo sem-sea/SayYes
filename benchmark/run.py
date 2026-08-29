@@ -15,9 +15,7 @@ completion, with the raw output kept so any reader can re-score it.
     export OPENAI_API_KEY=...
     python3 benchmark/run.py --provider openai --model gpt-5 --repeat 3
 
-    # Any OpenAI-compatible endpoint. A local Ollama server needs no key and
-    # lets anyone reproduce a run for free, which is the point of committing
-    # the raw rows:
+    # Any OpenAI-compatible endpoint, including a local Ollama server:
     python3 benchmark/run.py --provider openai --base-url http://localhost:11434/v1 \
         --model qwen3:8b --repeat 3
 
@@ -62,8 +60,6 @@ def _post(url: str, payload: dict, headers: dict, timeout: int) -> dict:
 def call_anthropic(model: str, system: str, user: str, max_tokens: int,
                    temperature: float, base_url: str | None, timeout: int,
                    max_tokens_field: str | None = None) -> tuple[str, dict]:
-    # max_tokens_field is accepted so both providers share one call signature;
-    # the Anthropic Messages API names this field max_tokens either way.
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise ProviderError("set ANTHROPIC_API_KEY to run against Anthropic models")
@@ -97,10 +93,7 @@ def call_openai(model: str, system: str, user: str, max_tokens: int,
                 max_tokens_field: str | None = None) -> tuple[str, dict]:
     key = os.environ.get("OPENAI_API_KEY", "unused")
     root = (base_url or OPENAI_URL).rstrip("/")
-    # api.openai.com takes max_completion_tokens; Ollama, llama.cpp, vLLM and
-    # most other OpenAI-compatible servers take max_tokens. Default by
-    # destination so a local model works out of the box, and let --max-tokens-field
-    # override it for a hosted endpoint that wants the newer name (Azure, say).
+    # api.openai.com takes max_completion_tokens; most compatible servers take max_tokens.
     field = max_tokens_field or ("max_completion_tokens" if base_url is None else "max_tokens")
     body = _post(
         f"{root}/chat/completions",

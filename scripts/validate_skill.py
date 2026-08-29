@@ -20,7 +20,7 @@ SPEC_URL = "https://agentskills.io/specification"
 NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 SPEC_FIELDS = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
 
-# Repository policies (stricter than the spec, chosen deliberately).
+# Repository policies, stricter than the spec.
 MAX_BODY_LINES = 500      # spec calls this a recommendation; we enforce it
 MAX_BODY_WORDS = 5000     # proxy for the spec's "< 5000 tokens recommended"
 

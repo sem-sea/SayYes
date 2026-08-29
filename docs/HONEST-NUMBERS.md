@@ -1,15 +1,13 @@
 # Honest numbers
 
-Where yesand helps, where it does nothing, and what has actually been measured.
-Read this before quoting any figure from this repository.
+Where yesand helps, where it does nothing, and what has been measured. Read
+this before quoting any figure from this repository.
 
-## Measured so far: nothing
+## The compliance table
 
-**`benchmark/results/` is empty. No model has been run against these 41 pairs
-yet.** The harness is built, its 19 checkers pass 75 fixtures, and the runner is
-verified end to end against a local mock endpoint, but the API calls that would
-fill in the table below have not been made, so this project currently publishes
-no compliance number of its own.
+The harness is built and verified: 19 checkers passing 75 fixtures, the runner
+tested end to end. The benchmark has not been run against a live model, so the
+table below is empty and yesand quotes no compliance percentage.
 
 | Model | Pairs | Negative phrasing | Positive phrasing | Difference (pp) |
 | --- | ---: | --- | --- | --- |
@@ -29,12 +27,6 @@ The thresholds that will decide how this result is framed are already fixed in
 [PREREGISTRATION.md](PREREGISTRATION.md), including the case where the answer is
 "no effect" and the case where it contradicts the pitch.
 
-### Why this section exists in this state
-
-A skill whose pitch is reliability, shipping a fabricated reliability number,
-would be self-refuting. The number is absent because it has not been measured,
-and it stays absent until it has.
-
 ## What can be said today
 
 Directional, and sourced. Full citations are in
@@ -50,8 +42,7 @@ Directional, and sourced. Full citations are in
   distractors."
 - **The mechanism has a documented counter-current.** arXiv:2503.22395 found
   that *larger* models handled negation better, and that results varied by
-  language. Anyone selling negation research as a flat "models cannot process
-  negation" is overstating it, this project included.
+  language. A flat "models cannot process negation" overstates the evidence.
 
 No published study we located reports a positive-versus-negative compliance gap
 of any specific size. If you have seen one quoted, ask for the paper.
@@ -95,23 +86,21 @@ Savings appear only where one positive line collapses several prohibitions, as
 when four separate bans on formatting become one instruction naming the wanted
 format.
 
-**No token measurement has been made for this project.** `run.py` records
-`input_tokens` and `output_tokens` on every row, so a real run produces this
-figure as a by-product. Until then there is no percentage to quote here, and
-the reliability claim is the one to lead with regardless.
+`run.py` records `input_tokens` and `output_tokens` on every row, so a run
+produces this figure as a by-product. Reliability is the claim to lead with
+regardless.
 
 ## Cost of a full run
 
-Unmeasured, and here is the arithmetic behind the estimate. 41 pairs × 2 arms ×
+The arithmetic: 41 pairs × 2 arms ×
 3 repeats = **246 completions per model**. Prompts are short (a one-line system
 instruction plus a one-line task) and outputs are capped at 1,024 tokens, most
 landing far below that. At current frontier per-token prices that lands in
 low single-digit US dollars per model, so three models sit in roughly the
 $5 to $15 range.
 
-Treat that as an order of magnitude, not a quote. The measured figure will be
-recorded here after the first real run, computed from the `usage` field on the
-committed rows.
+An order of magnitude rather than a quote. The measured figure is recorded here
+after the first run, computed from the `usage` field on the committed rows.
 
 ## Measure it yourself
 
@@ -137,8 +126,7 @@ outrank the output-token counts `ab.py` prints, because prompts, cached context,
 and retries all land on your bill and none of them appear in a completion
 length.
 
-**3. Reproduce this repository's own numbers** with `make bench`, once there are
-any. Until then the table above stays empty rather than estimated.
+**3. Reproduce this repository's numbers** with `make bench`.
 
 ### Reading a result honestly
 
@@ -157,7 +145,7 @@ If your measurement contradicts anything on this page,
 
 ## Limits of the design
 
-Worth knowing before quoting any future result from this harness.
+Worth knowing before quoting a result from this harness.
 
 - **41 pairs is a small sample.** It supports a directional finding across
   constraint types; it does not support a precise per-constraint-type effect
@@ -170,11 +158,11 @@ Worth knowing before quoting any future result from this harness.
   instructions buried mid-context or arriving late in a long conversation,
   which is where a lot of real agent instruction-following actually happens.
 - **English only.** arXiv:2503.22395 found negation handling varies by
-  language, so these results, once they exist, will speak for English alone.
+  language, so these results speak for English alone.
 - **Model versions move.** Any published table is a snapshot of the models named
   in it on the date recorded in the rows.
 
-## Comparison with caveman
+## yesand and caveman
 
 [caveman](https://github.com/JuliusBrussee/caveman) (MIT, roughly 100k stars at
 the time of writing, a moving number) compresses model **output**. yesand

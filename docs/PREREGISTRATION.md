@@ -8,10 +8,8 @@ that adds this file, and `git log --follow docs/PREREGISTRATION.md` dates the
 plan. A result published later either meets a criterion written here or misses
 it, and both outcomes were named in advance.
 
-This exists because the author of this benchmark wrote its test set and wants
-the hypothesis to be true. That combination produces favourable results whether
-or not the effect is real. Fixing the decision rule beforehand is the cheapest
-available defence.
+Anyone who writes a test set and expects a particular answer will tend to find
+it. Fixing the decision rule beforehand removes that degree of freedom.
 
 ## Hypothesis
 
@@ -119,5 +117,5 @@ evidence, and both are weaker than someone else reproducing it.
 
 ## Status
 
-**No run has been performed.** `benchmark/results/` is empty, and the table in
-[HONEST-NUMBERS.md](HONEST-NUMBERS.md) stays empty until one is.
+No run has been performed. The table in
+[HONEST-NUMBERS.md](HONEST-NUMBERS.md) fills in when one is.

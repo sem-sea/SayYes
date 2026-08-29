@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 """Deterministic compliance checkers for the yesand benchmark.
 
-Every checker takes the model's raw output plus a parameter mapping and returns
-True when the output complies with the instruction. Checkers stay deterministic
-and model-free on purpose: a judge model would make the headline number depend
-on the judge's own handling of negation, which is the thing under test.
+Each checker takes the model's raw output plus a parameter mapping and returns
+True when the output complies with the instruction.
 """
 from __future__ import annotations
 
@@ -45,12 +43,7 @@ _EMOJI_RE = re.compile(
 
 
 def _strip_code(text: str) -> str:
-    """Remove fenced blocks and inline spans so prose checks skip code.
-
-    Checks about prose style score the prose. A question mark inside
-    `is_ready?`, a capital inside `README`, or a hyphen bullet inside a shell
-    snippet all belong to code, so they are removed before the check runs.
-    """
+    """Remove fenced blocks and inline spans so prose checks score prose only."""
     without_fences = re.sub(r"(```|~~~).*?\1", "", text, flags=re.S)
     return re.sub(r"`[^`\n]*`", "", without_fences)
 
