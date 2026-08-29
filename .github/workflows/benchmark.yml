@@ -22,7 +22,7 @@ on:
         type: choice
         options: [anthropic, openai]
       model:
-        description: "Model id (e.g. claude-sonnet-5, gpt-5)"
+        description: "Model id, no date suffix (e.g. claude-haiku-4-5, claude-sonnet-5, gpt-5)"
         required: true
         type: string
 

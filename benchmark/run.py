@@ -53,8 +53,19 @@ class ProviderError(RuntimeError):
 def _post(url: str, payload: dict, headers: dict, timeout: int) -> dict:
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(url, data=data, headers=headers, method="POST")
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as exc:
+        detail = ""
+        try:
+            body = json.loads(exc.read().decode("utf-8"))
+            detail = body.get("error", {}).get("message") or json.dumps(body)[:300]
+        except Exception:
+            pass
+        if detail:
+            exc.msg = f"{exc.msg}: {detail}"
+        raise
 
 
 def call_anthropic(model: str, system: str, user: str, max_tokens: int,
